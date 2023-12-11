@@ -1,0 +1,9 @@
+- I currently own a @self.vehicle_type@ which is in @if (self.vehicle_age<=2): 'excellent'; elif (self.vehicle_age<=4): 'good'; elif (self.vehicle_age<=8): 'fair'; elif (self.vehicle_age>8): 'poor'@ condition
+- I am in the @self.income@ bracket
+- In the city I live in, there is a @if (self.ev_adoption<=5): 'minimal'; elif (self.ev_adoption<=15): 'moderate'; elif (self.ev_adoption<=30): 'significant'; elif (self.ev_adoption<=50): 'high'; elif (self.ev_adoption>50): 'dominant'@ adoption of electric vehicles
+- I am in the @if (self.charging_distance<=1): 'immediate vicinity'; elif (self.charging_distance<=3): 'short distance'; elif (self.charging_distance<=5): 'moderate distance'; elif (self.charging_distance>5): 'far distance'@ to a charging station
+- I consider myself as '@self.environmental_attitude@'
+- My level of innovativeness is classified as '@self.innovativeness@'
+- I am weighing my options: buying an electric vehicle, a gasoline vehicle, or waiting and keeping my current vehicle
+- On average an electric vehicle is more expensive than a gasoline vehicle
+- Should I buy an electric vehicle, a gasoline vehicle, or keep the current vehicle?

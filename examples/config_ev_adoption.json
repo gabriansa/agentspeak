@@ -1,0 +1,40 @@
+{
+    "agents_definition": {
+        "drivers": {
+            "num_agents": 200,
+            "variables": {
+                "income": {"initial_value": {"distribution_type": "categorical", "categories": {"low-income": 0.3, "middle-income": 0.6, "high-income": 0.1}}, "update_rule": null},
+                "daily_miles": {"initial_value": {"distribution_type": "normal", "mean": 32, "std": 12, "data_type": "float"}, "update_rule": null},
+                "charging_distance": {"initial_value": {"distribution_type": "normal", "mean": 6, "std": 1.5, "data_type": "float"}, "update_rule": "self.charging_distance.init_value*exp(-1*len([item for item in self.class.vehicle_type if item==self.EV])/len(self.class.vehicle_type))"},
+                "vehicle_age": {"initial_value": {"distribution_type": "normal", "mean": 5, "std": 1.67, "data_type": "int"}, "update_rule": "if (past_action==self.buy_EV or past_action==self.buy_GV): 1; elif (past_action==self.wait): self.vehicle_age + 1"},
+                "innovativeness": {"initial_value": {"distribution_type": "categorical", "categories": {"pioneer": 0.16, "mainstream adopter": 0.68, "laggard": 0.16}}, "update_rule": null},
+                "environmental_attitude": {"initial_value": {"distribution_type": "categorical", "categories": {"environmentalist": 0.16, "not environmentalist": 0.84}}, "update_rule": null},
+                "vehicle_type": {"initial_value": "gasoline vehicle", "update_rule": "if (past_action==self.buy_EV): self.EV; elif (past_action==self.buy_GV): self.GV; elif (past_action==self.wait): self.vehicle_type"},
+                "incentive": {"initial_value": 0, "update_rule": "if (past_action==self.buy_EV): 1; else: self.incentive"},
+                "ev_adoption": {"initial_value": 0, "update_rule": "self.ev_adoption.init_value + 100*len([item for item in self.class.vehicle_type if item==self.EV])/len(self.class.vehicle_type)"}
+            },
+            "actions": {
+                "buy_EV": "Buy an electric vehicle", 
+                "buy_GV": "Buy a gasoline vehicle",
+                "wait": "Keep the current vehicle"
+            },
+            "states": {
+                "EV": "electric vehicle",
+                "GV": "gasoline vehicle"
+            }
+        }
+    },
+    "simulation_parameters": {
+        "simulation_steps": 41,
+        "update_type": "asynchronous",
+        "seed": 0,
+        "verbose": true,
+        "run_name": "chargers_scenario_k1"
+    },
+    "llm_parameters": {
+        "model_name": "openhermes-2.5-mistral-7b.Q5_K_M.gguf",
+        "template": {"start_sys": "<|im_start|>system", "end_sys": "<|im_end|>", "start_user": "<|im_start|>user", "end_user": "<|im_end|>", "start_ai": "<|im_start|>assistant", "end_ai": "<|im_end|>"},
+        "temperature": 0.8,
+        "output_parser": "schema"
+    }
+}
